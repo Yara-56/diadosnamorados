@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Home from './Home';
+import Introduction from './Introduction';
+import Quiz from './Quiz';
+import Challenge from './Challenge';
+import MemoryGame from './MemoryGame';
+import FinalGift from './FinalGift';
 
-function App() {
+export default function App() {
+  const [step, setStep] = useState("home");
+
+  const handleStart = () => {
+    setStep("introduction");
+  };
+
+  const handleIntroductionComplete = () => {
+    setStep("quiz");
+  };
+
+  const handleQuizComplete = () => {
+    setStep("challenge");
+  };
+
+  const handleChallengeComplete = () => {
+    setStep("memory");
+  };
+
+  const handleMemoryComplete = () => {
+    setStep("finalGift");
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {step === "home" && <Home onStart={handleStart} />}
+      {step === "introduction" && <Introduction onComplete={handleIntroductionComplete} />}
+      {step === "quiz" && <Quiz onComplete={handleQuizComplete} />}
+      {step === "challenge" && <Challenge onComplete={handleChallengeComplete} />}
+      {step === "memory" && <MemoryGame onComplete={handleMemoryComplete} />}
+      {step === "finalGift" && <FinalGift />}
     </div>
   );
 }
-
-export default App;

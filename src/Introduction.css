@@ -1,0 +1,35 @@
+.introduction-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    color: #b22222;
+    margin-bottom: 40px;
+    animation: fade-in-up 0.7s ease;
+  }
+  
+  button {
+    font-size: 1.5rem;
+    padding: 15px 40px;
+    border-radius: 40px;
+    border: none;
+    background: #ff69b4;
+    color: white;
+    transition: 0.3s;
+  }
+  
+  button:hover {
+    transform: scale(1.05);
+  }
+  
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
