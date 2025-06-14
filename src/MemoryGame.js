@@ -9,7 +9,7 @@ export default function MemoryGame({ onComplete }) {
   const [flipped, setFlipped] = useState([]);
   const [matched, setMatched] = useState([]);
 
-  const debugMode = true;
+  const debugMode = false;
 
   function shuffle(array) {
     return array.sort(() => Math.random() - 0.5);
