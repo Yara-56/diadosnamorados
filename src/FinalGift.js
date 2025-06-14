@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './FinalGift.css';
+import Music from './Music';
 
 export default function FinalGift() {
   const [index, setIndex] = useState(11);
   const [fade, setFade] = useState(true);
   const imageList = [...Array.from({ length: 12 }, (_, i) => i + 11), 1];
 
-  // DATA DE INÍCIO DO RELACIONAMENTO:
-  const startDate = new Date(2022, 11, 16); // 16/12/2022 (lembre-se: mês 11 = Dezembro, pois em JS o mês começa em 0)
+  const startDate = new Date(2022, 11, 16); // 16/12/2022
 
   const [timeData, setTimeData] = useState(getTimeDiff());
 
@@ -15,28 +15,27 @@ export default function FinalGift() {
     const timerInterval = setInterval(() => {
       setTimeData(getTimeDiff());
     }, 1000);
-
     return () => clearInterval(timerInterval);
   }, []);
 
   function getTimeDiff() {
     const now = new Date();
-    let diff = now - startDate;
+    let years = now.getFullYear() - startDate.getFullYear();
+    let months = now.getMonth() - startDate.getMonth();
+    let days = now.getDate() - startDate.getDate();
+    let hours = now.getHours() - startDate.getHours();
+    let minutes = now.getMinutes() - startDate.getMinutes();
+    let seconds = now.getSeconds() - startDate.getSeconds();
 
-    let seconds = Math.floor(diff / 1000);
-    let minutes = Math.floor(seconds / 60);
-    let hours = Math.floor(minutes / 60);
-    let days = Math.floor(hours / 24);
-
-    let years = Math.floor(days / 365);
-    days = days % 365;
-
-    let months = Math.floor(days / 30);
-    days = days % 30;
-
-    hours = hours % 24;
-    minutes = minutes % 60;
-    seconds = seconds % 60;
+    if (seconds < 0) { seconds += 60; minutes--; }
+    if (minutes < 0) { minutes += 60; hours--; }
+    if (hours < 0) { hours += 24; days--; }
+    if (days < 0) {
+      const previousMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+      days += previousMonth.getDate();
+      months--;
+    }
+    if (months < 0) { months += 12; years--; }
 
     return { years, months, days, hours, minutes, seconds };
   }
@@ -45,7 +44,7 @@ export default function FinalGift() {
     const interval = setInterval(() => {
       setFade(false);
       setTimeout(() => {
-        setIndex((prev) => {
+        setIndex(prev => {
           const currentIndex = imageList.indexOf(prev);
           const nextIndex = currentIndex + 1;
           return imageList[nextIndex] || imageList[0];
@@ -69,15 +68,9 @@ export default function FinalGift() {
       </div>
 
       <div className="message">
-        <p>
-          Miguel, cada segundo ao seu lado é o melhor presente da minha vida. 💕
-        </p>
-        <p>
-          Obrigada por me fazer feliz todos os dias.
-        </p>
-        <p>
-          Te amo infinitamente!
-        </p>
+        <p>Miguel, cada segundo ao seu lado é o melhor presente da minha vida. 💕</p>
+        <p>Obrigada por me fazer feliz todos os dias.</p>
+        <p>Te amo infinitamente!</p>
       </div>
 
       <div className="timer">
@@ -91,6 +84,8 @@ export default function FinalGift() {
           <div><strong>{timeData.seconds}</strong> Segundos</div>
         </div>
       </div>
+
+      <Music playRefrain={true} />
     </div>
   );
 }

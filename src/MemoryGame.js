@@ -9,7 +9,7 @@ export default function MemoryGame({ onComplete }) {
   const [flipped, setFlipped] = useState([]);
   const [matched, setMatched] = useState([]);
 
-  const debugMode = true; 
+  const debugMode = true;
 
   function shuffle(array) {
     return array.sort(() => Math.random() - 0.5);
@@ -31,6 +31,12 @@ export default function MemoryGame({ onComplete }) {
       setTimeout(() => setFlipped([]), 1000);
     }
   }, [flipped, shuffled, matched]);
+
+  // Função de pular simulando conclusão
+  function handleSkip() {
+    const allPairs = Array.from({ length: totalPairs }, (_, i) => i + 1);
+    setMatched(allPairs);
+  }
 
   return (
     <div className="memory-container">
@@ -59,7 +65,7 @@ export default function MemoryGame({ onComplete }) {
 
       {debugMode && (
         <div className="skip-section">
-          <button onClick={onComplete} className="skip-button">
+          <button onClick={handleSkip} className="skip-button">
             ⚙️ Pular (modo dev)
           </button>
         </div>
