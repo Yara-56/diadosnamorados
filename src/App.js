@@ -11,9 +11,11 @@ export default function App() {
   const [step, setStep] = useState("home");
   const [playIntro, setPlayIntro] = useState(false);
   const [playRefrain, setPlayRefrain] = useState(false);
+  const [isMuted, setIsMuted] = useState(true); // controlado globalmente
 
   const handleStart = () => {
-    setPlayIntro(true);  // Toca a primeira música só quando clica no presente
+    setIsMuted(false); // desmuta no clique (Safari friendly)
+    setPlayIntro(true);
     setStep("introduction");
   };
 
@@ -30,8 +32,8 @@ export default function App() {
   };
 
   const handleMemoryComplete = () => {
-    setPlayIntro(false);  // Para a música 1
-    setPlayRefrain(true); // Inicia a música 2 no final
+    setPlayIntro(false);
+    setPlayRefrain(true);
     setStep("finalGift");
   };
 
@@ -43,8 +45,8 @@ export default function App() {
       {step === "challenge" && <Challenge onComplete={handleChallengeComplete} />}
       {step === "memory" && <MemoryGame onComplete={handleMemoryComplete} />}
       {step === "finalGift" && <FinalGift />}
-      
-      <Music playIntro={playIntro} playRefrain={playRefrain} />
+
+      <Music playIntro={playIntro} playRefrain={playRefrain} isMuted={isMuted} />
     </div>
   );
 }

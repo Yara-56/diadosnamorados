@@ -1,13 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactPlayer from 'react-player/youtube';
 
-export default function Music({ playIntro = false, playRefrain = false }) {
-  const [isMuted, setIsMuted] = useState(true);
-
-  const handleReady = () => {
-    setTimeout(() => setIsMuted(false), 500);
-  };
-
+export default function Music({ playIntro = false, playRefrain = false, isMuted = true }) {
   const playerStyle = {
     position: 'absolute',
     top: '-1000px',
@@ -40,7 +34,6 @@ export default function Music({ playIntro = false, playRefrain = false }) {
         muted={isMuted}
         volume={1}
         controls={false}
-        onReady={handleReady}
         config={{
           youtube: { playerVars }
         }}
