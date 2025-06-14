@@ -24,12 +24,12 @@ export default function Music({ playIntro = false, playRefrain = false }) {
     url = "https://www.youtube.com/watch?v=9M5a24g4OVg";
     loop = true;
   } else if (playRefrain) {
-    url = "https://www.youtube.com/watch?v=5uhR5PhDRWM";
+    url = "https://www.youtube.com/watch?v=vPTxVQDk11U";
     loop = false;
-    playerVars.start = 40;
+    playerVars.start = 56;
   }
 
-  if (!url) return null; // Não renderiza nada se nenhum for verdadeiro
+  if (!url) return null;
 
   return (
     <div style={playerStyle}>

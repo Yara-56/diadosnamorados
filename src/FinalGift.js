@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './FinalGift.css';
-import Music from './Music';
 
 export default function FinalGift() {
   const [index, setIndex] = useState(11);
@@ -84,8 +83,6 @@ export default function FinalGift() {
           <div><strong>{timeData.seconds}</strong> Segundos</div>
         </div>
       </div>
-
-      <Music playRefrain={true} />
     </div>
   );
 }
