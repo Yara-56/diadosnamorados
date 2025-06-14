@@ -16,36 +16,35 @@ export default function Music({ playIntro = false, playRefrain = false }) {
     height: '300px',
   };
 
+  let url = null;
+  let loop = false;
+  let playerVars = { autoplay: 1 };
+
+  if (playIntro) {
+    url = "https://www.youtube.com/watch?v=9M5a24g4OVg";
+    loop = true;
+  } else if (playRefrain) {
+    url = "https://www.youtube.com/watch?v=5uhR5PhDRWM";
+    loop = false;
+    playerVars.start = 40;
+  }
+
+  if (!url) return null; // Não renderiza nada se nenhum for verdadeiro
+
   return (
     <div style={playerStyle}>
-      {playIntro && (
-        <ReactPlayer
-          url="https://www.youtube.com/watch?v=9M5a24g4OVg"
-          playing
-          loop
-          muted={isMuted}
-          volume={1}
-          controls={false}
-          onReady={handleReady}
-          config={{
-            youtube: { playerVars: { autoplay: 1 } }
-          }}
-        />
-      )}
-
-      {playRefrain && (
-        <ReactPlayer
-          url="https://www.youtube.com/watch?v=5uhR5PhDRWM"
-          playing
-          muted={isMuted}
-          volume={1}
-          controls={false}
-          onReady={handleReady}
-          config={{
-            youtube: { playerVars: { autoplay: 1, start: 40 } }
-          }}
-        />
-      )}
+      <ReactPlayer
+        url={url}
+        playing
+        loop={loop}
+        muted={isMuted}
+        volume={1}
+        controls={false}
+        onReady={handleReady}
+        config={{
+          youtube: { playerVars }
+        }}
+      />
     </div>
   );
 }
